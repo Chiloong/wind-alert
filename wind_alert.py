@@ -1,12 +1,15 @@
 import requests
 import os
-import json
 
 LAT = 35.24
 LON = 113.24
 
 API_KEY = os.environ["API_KEY"]
 BARK_KEY = os.environ["BARK_KEY"]
+
+WIND_SPEED_THRESHOLD = 2.5
+NE_MIN = 20
+NE_MAX = 100
 
 def send_bark(msg):
     requests.get(f"https://api.day.app/{BARK_KEY}/{msg}")
@@ -17,20 +20,13 @@ def check_weather():
         f"lat={LAT}&lon={LON}&appid={API_KEY}&units=metric"
     )
 
-    response = requests.get(url, timeout=10)
-    data = response.json()
+    data = requests.get(url, timeout=10).json()
 
-    wind_speed = data["wind"].get("speed", "无")
-    wind_deg = data["wind"].get("deg", "无")
+    wind_speed = data["wind"]["speed"]
+    wind_deg = data["wind"]["deg"]
 
-    msg = (
-        f"OW原始数据\n"
-        f"speed: {wind_speed} m/s\n"
-        f"deg: {wind_deg}°\n"
-        f"\n完整wind字段:\n{json.dumps(data['wind'])}"
-    )
-
-    send_bark(msg)
+    if wind_speed >= WIND_SPEED_THRESHOLD and NE_MIN <= wind_deg <= NE_MAX:
+        send_bark(f"⚠️ 东向风提醒\n风速:{wind_speed}m/s\n风向:{wind_deg}°")
 
 if __name__ == "__main__":
     check_weather()
