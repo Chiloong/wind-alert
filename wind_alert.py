@@ -1,8 +1,8 @@
 import requests
 import os
 
-LAT = 35.24
-LON = 113.24
+LAT = 35.21
+LON = 113.29
 
 API_KEY = os.environ["API_KEY"]
 BARK_KEY = os.environ["BARK_KEY"]
@@ -57,9 +57,9 @@ def check_weather():
         # 只有从 OFF → ON 才提醒
         if last_state == "OFF" and current_state == "ON":
             send_bark(
-                f"⚠️ 东向风触发\n"
-                f"风速:{wind_speed}m/s\n"
-                f"阵风:{gust}m/s\n"
+                f"🌬️东北风 触发\n"
+                f"风速:{wind_speed}ms\n"
+                f"阵风:{gust}ms\n"
                 f"风向:{wind_deg}°"
             )
 
