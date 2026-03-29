@@ -57,7 +57,8 @@ def check_weather():
         # 只有从 OFF → ON 才提醒
         if last_state == "OFF" and current_state == "ON":
             send_bark(
-                f"🌬️东北风 触发\n"
+                f"🏭发电厂↙️东北风💨触发\n"
+                f"⛔️关闭新风🟣颗粒过滤开大✅\n"
                 f"风速:{wind_speed}ms\n"
                 f"阵风:{gust}ms\n"
                 f"风向:{wind_deg}°"
