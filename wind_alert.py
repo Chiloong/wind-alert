@@ -9,8 +9,8 @@ BARK_KEY = os.environ["BARK_KEY"]
 
 WIND_SPEED_THRESHOLD = 2.5
 GUST_THRESHOLD = 4.0
-NE_MIN = 20
-NE_MAX = 100
+NE_MIN = 18
+NE_MAX = 78
 
 STATE_FILE = "wind_state.txt"
 
